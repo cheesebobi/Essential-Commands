@@ -146,19 +146,31 @@ public class PlayerData extends PersistentState implements IServerPlayerEntityDa
 
     // Homes
     public void addHome(String homeName, MinecraftLocation minecraftLocation) throws CommandSyntaxException {
-        int playerMaxHomes = ECPerms.getHighestNumericPermission(this.player.getCommandSource(), ECPerms.Registry.Group.home_limit_group);
-        if (this.homes.size() < playerMaxHomes) {
+        ServerCommandSource source = this.player.getCommandSource();
+
+        // Base home limit based on permission group
+        int baseHomeLimit = ECPerms.getHighestNumericPermission(source, ECPerms.Registry.Group.home_limit_group);
+
+        // Extra homes from 'extrahomes.[number]' permissions via LuckPerms
+        int extraHomeLimit = ECPerms.getTotalExtraHomes(source);
+
+        // Total home limit
+        int totalHomeLimit = baseHomeLimit + extraHomeLimit;
+
+        if (this.homes.size() < totalHomeLimit) {
             homes.putCommand(homeName, minecraftLocation);
             this.markDirty();
         } else {
             var ecText = ECText.access(this.player);
             var homeNameText = ecText.accent(homeName);
-            var maxHomesText = ecText.accent(String.valueOf(playerMaxHomes));
+            var maxHomesText = ecText.accent(String.valueOf(totalHomeLimit));
+            var currentHomesText = ecText.accent(String.valueOf(this.homes.size()));
             throw CommandUtil.createSimpleException(ecText.getText(
                 "cmd.home.set.error.limit",
                 TextFormatType.Error,
                 homeNameText,
-                maxHomesText));
+                maxHomesText,
+                currentHomesText));
         }
     }
 

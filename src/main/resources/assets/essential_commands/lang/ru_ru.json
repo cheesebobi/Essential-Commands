@@ -66,6 +66,7 @@
   "player.afk.exit": "${0} больше не AFK.",
 
   "teleport.error.interdimensional_teleport_disabled": "Телепортация отменена. Телепортация между измерениями выключена администрацией.",
+  "teleport.error.in_combat": "Телепортация отменена. Вы находитесь в бою.",
   "teleport.queued": "Телепортирование к ${0} через ${1} секунд...",
   "teleport.done": "Телепортирование к ${0}.",
   "teleport.interrupted.damage": "Телепортация прервана. Причина: Получение урона",

@@ -68,6 +68,7 @@
   "player.afk.exit": "${0} ist nicht mehr AFK.",
 
   "teleport.error.interdimensional_teleport_disabled": "Teleport fehlgeschlagen. Grund: Teleportation zwischen Dimensionen ist deaktiviert.",
+  "teleport.error.in_combat": "Teleport fehlgeschlagen. Grund: Spieler ist im Kampf.",
   "teleport.queued": "Teleportation zu ${0} in ${1} Sekunden...",
   "teleport.done": "Zu ${0} teleportiert.",
   "teleport.interrupted.damage": "Teleportation abgebrochen. Grund: Spieler hat Schaden erhalten",

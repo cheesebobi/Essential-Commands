@@ -2,10 +2,16 @@ package com.fibermc.essentialcommands;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import net.luckperms.api.model.user.User;
+
 import me.lucko.fabric.api.permissions.v0.Permissions;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.command.CommandSource;
@@ -199,4 +205,52 @@ public final class ECPerms {
             ? list // TODO: this is hacky
             : list.filter(permission -> check(player.getCommandSource(), permission));
     }
+
+    public static int getTotalExtraHomes(ServerCommandSource source) {
+        ServerPlayerEntity player;
+        try {
+            player = source.getPlayerOrThrow();
+        } catch (Exception e) {
+            // Player not found or other error
+            return 0;
+        }
+
+        User user = LuckPermsProvider.get().getUserManager().getUser(player.getUuid());
+        if (user == null) {
+            return 0;
+        }
+
+        Set<String> permissions = user.getCachedData().getPermissionData().getPermissionMap().keySet();
+
+        return permissions.stream()
+            .filter(perm -> perm.startsWith("extrahomes."))
+            .map(perm -> perm.substring("extrahomes.".length()))
+            .mapToInt(numStr -> {
+                try {
+                    return Integer.parseInt(numStr);
+                } catch (NumberFormatException e) {
+                    EssentialCommands.LOGGER.warn("Invalid extra home permission format: {}", e);
+                    return 0;
+                }
+            })
+            .sum();
+    }
+
+    public static Set<String> getPermissions(ServerCommandSource source) {
+        ServerPlayerEntity player;
+        try {
+            player = source.getPlayerOrThrow();
+        } catch (Exception e) {
+            // Player not found or other error
+            return Set.of();
+        }
+
+        User user = LuckPermsProvider.get().getUserManager().getUser(player.getUuid());
+        if (user == null) {
+            return Set.of();
+        }
+
+        return user.getCachedData().getPermissionData().getPermissionMap().keySet();
+    }
+
 }

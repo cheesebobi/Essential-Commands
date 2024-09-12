@@ -57,6 +57,7 @@ allprojects {
         modApi  "eu.pb4:placeholder-api:${project.placeholder_api_version}"
         include "eu.pb4:placeholder-api:${project.placeholder_api_version}"
         modImplementation 'org.yaml:snakeyaml:2.0'
+        modImplementation "net.luckperms:api:5.4"
         include 'org.yaml:snakeyaml:2.0'
         modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
         include "io.github.ladysnake:PlayerAbilityLib:${pal_version}"

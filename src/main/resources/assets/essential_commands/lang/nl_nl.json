@@ -87,6 +87,7 @@
   "player.afk.exit": "${0} is niet meer AFK.",
 
   "teleport.error.interdimensional_teleport_disabled": "Teleporteren mislukt. Reden: Interdimensionale teleportatie uitgeschakeld.",
+  "teleport.error.in_combat": "Teleporteren mislukt. Reden: Speler is in gevecht.",
   "teleport.queued": "Teleporteren naar ${0} in ${1} seconden...",
   "teleport.done": "Teleporteren naar ${0}.",
   "teleport.interrupted.damage": "Teleportatie onderbroken. Reden: speler lijdt pijn.",
