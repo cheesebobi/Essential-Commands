@@ -66,6 +66,7 @@
   "player.afk.exit": "${0} não está mais AFK.",
 
   "teleport.error.interdimensional_teleport_disabled": "O teleporte falhou. Razão: Teletransporte interdimensional desativado.",
+  "teleport.error.in_combat": "O teleporte falhou. Razão: Em combate.",
   "teleport.queued": "Teletransportando para ${0} em ${1} segundos...",
   "teleport.done": "Teletransportado para ${0}.",
   "teleport.interrupted.damage": "Teletransporte interrompido. Razão: Dano tomado",

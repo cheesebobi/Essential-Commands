@@ -64,6 +64,7 @@
   "player.afk.exit": "${0} 回来了。",
 
   "teleport.error.interdimensional_teleport_disabled": "传送失败。原因：跨纬度传送已被禁止。",
+  "teleport.error.in_combat": "传送失败。原因：在战斗中。",
   "teleport.queued": "将在 ${1} 秒内传送至 ${0} ...",
   "teleport.done": "已传送至 ${0} 。",
   "teleport.interrupted.damage": "传送中断。原因：受到伤害。",

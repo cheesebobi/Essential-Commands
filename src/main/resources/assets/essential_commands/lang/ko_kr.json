@@ -70,6 +70,7 @@
   "player.afk.exit": "${0}님은 더 이상 잠수 상태가 아닙니다.",
 
   "teleport.error.interdimensional_teleport_disabled": "순간이동에 실패하였습니다. 사유: 차원간 순간이동 비활성.",
+  "teleport.error.in_combat": "순간이동에 실패하였습니다. 사유: 전투 중",
   "teleport.queued": "${1}초 뒤 ${0}으로 순간이동 됩니다...",
   "teleport.done": "${0}으로 순간이동 되었습니다.",
   "teleport.interrupted.damage": "순간이동에 실패하였습니다. 사유: 데미지 받음",

@@ -21,14 +21,21 @@ public final class PlayerTeleporter {
     }
 
     public static void requestTeleport(QueuedTeleport queuedTeleport) {
-        ServerPlayerEntity player = queuedTeleport.getPlayerData().getPlayer();
-//        if (pData.getTpCooldown() < 0 || player.getServer().getPlayerManager().isOperator(player.getGameProfile())) {
-//            //send TP request to tpManager
-//        }
+        PlayerData pData = queuedTeleport.getPlayerData();
+        ServerPlayerEntity player = pData.getPlayer();
+
+        // Check if the player is in combat
+        if (pData.isInCombat()) {
+            pData.sendError("teleport.error.in_combat");
+            return;
+        }
+
+        // Existing teleport delay and bypass logic
         if (playerHasTpRulesBypass(player, ECPerms.Registry.bypass_teleport_delay) || CONFIG.TELEPORT_DELAY_TICKS <= 0) {
-            teleport(queuedTeleport.getPlayerData(), queuedTeleport.getDest(), queuedTeleport.getDestName());
+            teleport(pData, queuedTeleport.getDest(), queuedTeleport.getDestName());
         } else {
             TeleportManager.getInstance().queueTeleport(queuedTeleport);
+            pData.sendMessage("teleport.queued", Text.literal("Your teleport request has been queued."));
         }
     }
 
@@ -43,6 +50,12 @@ public final class PlayerTeleporter {
 
     public static void teleport(PlayerData pData, MinecraftLocation dest, MutableText destName) { //forceTeleport
         ServerPlayerEntity player = pData.getPlayer();
+
+        // Check if the player is in combat before force teleporting
+        if (pData.isInCombat()) {
+            pData.sendError("teleport.error.in_combat");
+            return;
+        }
 
         // If teleporting between dimensions is disabled and player doesn't have TP rules override
         if (!CONFIG.ALLOW_TELEPORT_BETWEEN_DIMENSIONS
@@ -70,12 +83,12 @@ public final class PlayerTeleporter {
             "teleport.done",
             playerProfile.shouldPrintTeleportCoordinates()
                 ? TextUtil.join(
-                    new Text[]{
-                        destName,
-                        dest.toText(playerProfile),
-                    },
-                    Text.literal(" ")
-                )
+                new Text[]{
+                    destName,
+                    dest.toText(playerProfile),
+                },
+                Text.literal(" ")
+            )
                 : destName
         );
     }

@@ -87,6 +87,7 @@
   "player.afk.exit": "${0} is no longer AFK.",
 
   "teleport.error.interdimensional_teleport_disabled": "Teleport failed. Reason: Interdimensional teleportation disabled.",
+  "teleport.error.in_combat": "Teleport Failed. You're in combat!",
   "teleport.queued": "Teleporting to ${0} in ${1} seconds...",
   "teleport.done": "Teleported to ${0}.",
   "teleport.interrupted.damage": "Teleport interrupted. Reason: Damage Taken",
