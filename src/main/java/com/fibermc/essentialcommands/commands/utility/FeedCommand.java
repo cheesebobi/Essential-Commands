@@ -17,6 +17,10 @@ public class FeedCommand implements Command<ServerCommandSource> {
         PlayerData senderPlayerData = PlayerData.accessFromContextOrThrow(context);
         ServerPlayerEntity targetPlayer = CommandUtil.getCommandTargetPlayer(context);
 
+        if (senderPlayerData.isInCombat()){
+            senderPlayerData.sendCommandError("cmd.feed.error.combat");
+            return 0;
+        }
         HungerManager hungerManager = targetPlayer.getHungerManager();
         if (!hungerManager.isNotFull()) {
             senderPlayerData.sendCommandError("cmd.feed.error.full");

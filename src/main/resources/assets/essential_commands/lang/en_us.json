@@ -62,6 +62,7 @@
   "cmd.bed.error.none_set":  "Player spawnpoint not set.",
   "cmd.bed.bed_destination_name":  "bed",
   "cmd.feed.error.full": "Player is not hungry.",
+  "cmd.feed.error.combat": "Cannot feed while in combat.",
   "cmd.feed.feedback": "Player hunger filled.",
   "cmd.heal.error.full": "Player is not hurt.",
   "cmd.heal.feedback": "Player health restored.",
