@@ -125,6 +125,7 @@ public final class EssentialCommandRegistry {
             LiteralArgumentBuilder<ServerCommandSource> homeListBuilder = CommandManager.literal("list");
             LiteralArgumentBuilder<ServerCommandSource> homeListOfflineBuilder = CommandManager.literal("list_offline");
             LiteralArgumentBuilder<ServerCommandSource> homeOverwriteBuilder = CommandManager.literal("overwritehome");
+            LiteralArgumentBuilder<ServerCommandSource> extrahomeBuilder = CommandManager.literal("extrahome").requires(ECPerms.require("essentialcommands.extrahome", 2));
 
             homeSetBuilder
                 .requires(ECPerms.require(ECPerms.Registry.home_set, 0))
@@ -175,6 +176,33 @@ public final class EssentialCommandRegistry {
                 .then(argument("home_name", StringArgumentType.word())
                 .executes(new HomeOverwriteCommand()));
 
+            extrahomeBuilder.then(CommandManager.literal("add")
+                .requires(ECPerms.require("essentialcommands.extrahome", 2))
+                .then(argument("player", StringArgumentType.word())
+                    .then(argument("number", IntegerArgumentType.integer(1))
+                        .executes(context -> {
+                            String playerName = StringArgumentType.getString(context, "player");
+                            int numberToAdd = IntegerArgumentType.getInteger(context, "number");
+                            return ExtraHomeCommand.addExtraHomes(context, playerName, numberToAdd);
+                        })
+                    )
+                )
+            );
+
+            extrahomeBuilder.then(CommandManager.literal("subtract")
+                .requires(ECPerms.require("essentialcommands.extrahome", 2))
+                .then(argument("player", StringArgumentType.word())
+                    .then(argument("number", IntegerArgumentType.integer(1))
+                        .executes(context -> {
+                            String playerName = StringArgumentType.getString(context, "player");
+                            int numberToSubtract = IntegerArgumentType.getInteger(context, "number");
+                            return ExtraHomeCommand.subtractExtraHomes(context, playerName, numberToSubtract);
+                        })
+                    )
+                )
+            );
+
+
             LiteralCommandNode<ServerCommandSource> homeNode = homeBuilder
                 .requires(ECPerms.requireAny(ECPerms.Registry.Group.home_group, 0))
                 .build();
@@ -187,6 +215,8 @@ public final class EssentialCommandRegistry {
             homeNode.addChild(homeListOfflineBuilder.build());
 
             registerNode.accept(homeNode);
+
+            registerNode.accept(extrahomeBuilder.build());
 
             essentialCommandsRootNode.addChild(homeOverwriteBuilder.build());
         }
